@@ -1,4 +1,6 @@
 class Pagifyio
+    attr_accessor :options, :app_id, :app_secret 
+    
     def initialize(id, secret)
         @app_id = id
         @app_secret = secret
@@ -19,7 +21,7 @@ class Pagifyio
         @options[:path] = "/api/generate_pdf"
         @options[:acceptType] = "application/pdf"
         res = Client.request(@options, requestData, @app_id, @app_secret)
-        res.body
+        res
     end
 
     def list_templates
