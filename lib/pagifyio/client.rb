@@ -9,12 +9,16 @@ module Pagifyio::Client
             faraday.adapter  Faraday.default_adapter 
         end
         
-        response = conn.post do |req|
+        response = conn.send(options[:method]) do |req|
             req.url options[:path]
             req.headers['Content-Type'] = "application/json"
             req.headers['Accept-Type'] = options[:accept_type]
-            req.body = JSON.generate(data)
-            req.headers['Content-Length'] = req.body.length.to_s
+            if options[:method] != 'get'
+                req.body = JSON.generate(data)
+                req.headers['Content-Length'] = req.body.length.to_s
+            else
+                req.headers['Content-Length'] = "0"
+            end
             req.headers['Date'] = Time.now().to_s
             req.headers['Authentication'] = api_key + ':' + sign_request(req, api_secret) 
         end
@@ -34,7 +38,6 @@ module Pagifyio::Client
         date = Time.now().to_s
         path = request.respond_to?(:unparsed_uri) ? request.unparsed_uri : request.path
         canonical_str = method + content_type + content_md5 + content_length + date + path
-        puts canonical_str
         canonical_str
     end    
 end
