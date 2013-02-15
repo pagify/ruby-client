@@ -35,7 +35,7 @@ module Pagifyio::Client
         content_type = request.headers['Content-Type']
         content_md5 = ''
         content_length = request.headers['Content-Length']
-        date = Time.now().to_s
+        date = request.headers['Date']
         path = request.respond_to?(:unparsed_uri) ? request.unparsed_uri : request.path
         canonical_str = method + content_type + content_md5 + content_length + date + path
         canonical_str
