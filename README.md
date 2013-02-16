@@ -20,7 +20,7 @@ Using this library you can;
 - Create a new document template
 - Delete a document template
 - Generate link to edit a document template
-- Generate PDF using a document template
+- Generate PDF
 
 Before calling any action or function make sure to initialize the client using your api secret and api key:
 
@@ -38,7 +38,7 @@ A list of all templates that have either been created using Pagify dashboard or 
 ```ruby
 templates = pagify.list_templates
 ```
-Here is the response for a successful call:
+Here is a sample response for a successful call:
 ```ruby
 {
   :statusCode => 200, 
@@ -59,7 +59,7 @@ Create a blank templates using ```create_template``` function call.
 ```ruby
 template = pagify.create_template
 ```
-Here goes a successful response:
+Here is a sample successful response:
 ```ruby
 {
   :statusCode => 200, 
@@ -68,7 +68,7 @@ Here goes a successful response:
 }
 ```
 The response contains the template id for the new template. 
->Note that this template is not ready to generate PDF as long as you do'nt edit and save it for the first time.
+>Note that this template is not ready to generate PDF as long as you don't edit and save it for the first time.
 
 3. Delete template:
 -------------------
