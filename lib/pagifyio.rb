@@ -15,13 +15,13 @@ class Pagifyio
 
     def generate_pdf(template_id, data)
         throw 'Please supply template_id' if (template_id == '' || template_id == nil)
-        requestData = {
+        request_data = {
             :data => data
-        };
+        }
         @options[:path] = "/api/templates/#{template_id}/generate_pdf"
         @options[:accept_type] = "application/pdf"
         @options[:method] = "post"
-        res = Client.request(@options, requestData, @app_id, @app_secret)
+        res = Client.request(@options, request_data, @app_id, @app_secret)
         res
     end
 
@@ -33,11 +33,15 @@ class Pagifyio
         JSON.parse(res.body)
     end
 
-    def create_template
+    def create_template(name)
+        throw 'Please supply name' if (name == '' || name == nil)
+        request_data = {
+            :template_name => name
+        }
         @options[:path] = "/api/templates"
         @options[:accept_type] = "application/json"
         @options[:method] = "post"
-        res = Client.request(@options, {}, @app_id, @app_secret)
+        res = Client.request(@options, request_data, @app_id, @app_secret)
         JSON.parse(res.body)
     end
 
