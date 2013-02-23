@@ -5,8 +5,8 @@ class Pagifyio
         @app_id = id
         @app_secret = secret
         @options = {
-            :host_name => "127.0.0.1",
-            :port => "3000",
+            :host_name => "alpha.pagify.io",
+            :port => "80",
             :method => "",
             :path => "",
             :accept_type => ""
@@ -22,7 +22,11 @@ class Pagifyio
         @options[:accept_type] = "application/pdf"
         @options[:method] = "post"
         res = Client.request(@options, request_data, @app_id, @app_secret)
-        res
+        begin
+            JSON.parse(res.body)
+        rescue
+            res.body
+        end
     end
 
     def list_templates
