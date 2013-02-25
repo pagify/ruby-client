@@ -117,6 +117,7 @@ data = {
           :text_field => "Hello World!",
           :image_field => "http://abc.com/xyz.png",
           :chart_multi_value_field => [
+                          ["First", "Second", "Third"],
                           [20, 40, 30],
                           [50, 60, 10]
                        ],
@@ -127,6 +128,8 @@ data = {
                        ]
         }
 template = pagify.generate_pdf("71d620fc773a11e288cce006e61619ba", data)
+
+Note: A successful response is of binary type, where as a failed response will be a hash containing error message and status code. 
 ```
 If the function call is successful the response is in binary format which can be saved as a PDF using ```File``` class.
 
@@ -137,10 +140,11 @@ The data supplied to populate the template is a hash containing field names and 
 <b>Table:</b> A matrix of string values supplied as a nested array.
 <b>Chart:</b> There are three categories of charts that are currently available. Each chart type requires a different format for values:
 <b>Multi-value series chart(bar, stacked, line, area): </b>
-A matrix of positive integer values supplied as nested array.
+A matrix of values supplied as nested array. The first entry of array contains labels of x axis as strings, and the rest of the entries should be integer values.
 ```ruby
 {
   :chart_multi_value_field => [
+                                ["First", "Second", "Third"],
                                 [20, 40, 30],
                                 [50, 60, 10]
                              ]
@@ -161,6 +165,7 @@ A matrix of hashes supplied as nested array. Each hash is a pair of x, y values
                     ]
 }
 ```
+
 
 That's all. 
 
